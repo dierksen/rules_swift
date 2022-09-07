@@ -98,6 +98,15 @@ def _all_tool_configs(
         swift_action_names.COMPILE: compile_tool_config,
         swift_action_names.DERIVE_FILES: compile_tool_config,
         swift_action_names.DUMP_AST: compile_tool_config,
+        swift_action_names.PRECOMPILE_C_MODULE: swift_toolchain_config.driver_tool_config(
+            driver_mode = "swiftc",
+            env = env,
+            swift_executable = swift_executable,
+            toolchain_root = toolchain_root,
+            tool_executable_suffix = tool_executable_suffix,
+            use_param_file = use_param_file,
+            worker_mode = "wrap",
+        ),
     }
 
     if use_autolink_extract:

@@ -227,7 +227,7 @@ def _create_linux_toolchain(repository_ctx):
     if not path_to_swiftc:
         fail("No 'swiftc' executable found in $PATH")
 
-    root = path_to_swiftc.dirname.dirname
+    root = path_to_swiftc.dirname.dirname.dirname
     feature_values = _compute_feature_values(repository_ctx, path_to_swiftc)
     version_file = _write_swift_version(repository_ctx, path_to_swiftc)
 

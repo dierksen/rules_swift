@@ -28,7 +28,7 @@ def _swift_c_module_impl(ctx):
     ):
         fail("Must specify one (and only one) of module_map and system_module_map.")
     swift_toolchain = ctx.attr._toolchain[SwiftToolchainInfo]
-    module_map = ctx.file.module_map or ctx.attr.system_module_map
+    module_map = ctx.file.module_map or ctx.attr.system_module_map.replace("$SWIFT_HOME", swift_toolchain.root_dir)
     is_system = True if ctx.attr.system_module_map else False
 
     deps = ctx.attr.deps

@@ -10,6 +10,13 @@ licenses(["notice"])
 ###############################################################################
 # Fixtures for testing explicit clang module compilation.
 
+config_setting(
+    name = "linux",
+    constraint_values = [
+        "@platforms//os:linux",
+    ],
+)
+
 swift_library(
     name = "simple",
     srcs = ["Empty.swift"],
@@ -20,6 +27,9 @@ swift_library(
 swift_c_module(
     name = "shims",
     module_name = "SwiftShims",
-    system_module_map = "__BAZEL_XCODE_SDKROOT__/usr/lib/swift/shims/module.modulemap",
+    system_module_map = select({
+        ":linux": "$SWIFT_HOME/usr/lib/swift/shims/module.modulemap",
+        "//conditions:default": "__BAZEL_XCODE_SDKROOT__/usr/lib/swift/shims/module.modulemap",
+    }),
     tags = FIXTURE_TAGS,
 )

@@ -24,6 +24,7 @@ explicit_modules_action_command_line_test = make_action_command_line_test_rule(
         "//command_line_option:features": [
             "swift.use_c_modules",
             "swift.emit_c_module",
+            "swift.supports_system_module_flag",
         ],
     },
 )
@@ -48,7 +49,6 @@ def explicit_modules_test_suite(name):
         mnemonic = "SwiftCompile",
         tags = [name],
         target_under_test = "@build_bazel_rules_swift//test/fixtures/explicit_modules:simple",
-        target_compatible_with = ["@platforms//os:macos"],
     )
 
     # Verify that the swift_c_module precompiles.
@@ -64,7 +64,6 @@ def explicit_modules_test_suite(name):
         mnemonic = "SwiftPrecompileCModule",
         tags = [name],
         target_under_test = "@build_bazel_rules_swift//test/fixtures/explicit_modules:shims",
-        target_compatible_with = ["@platforms//os:macos"],
     )
 
     # Verify that the default behavior isn't impacted.
